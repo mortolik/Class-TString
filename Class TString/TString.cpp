@@ -52,12 +52,15 @@ ostream& operator << (ostream& os, const TString& s)
 	os << s.str;
 	return os;
 }
-//istream& operator >> (istream& is,  const TString& str)
-//{
-//	is >> str.len;
-//	return is;
-//}
-
+istream& operator >> (istream& is, TString& s)
+{
+	char* limS = new char[TString::LIM + 1];
+	is.get(limS, TString::LIM);
+	if (is) { s = limS; }
+	while (is.get() != '\n' && is);
+	delete[] limS;
+	return is;
+}
 int TString::symb(const char s)
 {
 	int count = 0;
@@ -67,5 +70,47 @@ int TString::symb(const char s)
 			count++;
 	}
 	return count;
+}
+
+
+bool TString :: operator==(const TString& s)
+{
+	if (len != s.len) return false;
+	for (int i = 0; i < len; i++)
+	{
+		if (str[i] != s.str[i])return false;
+	}
+	return true;
+}
+bool TString :: operator != (const TString& s)
+{
+	return!(*this == s);
+}
+bool TString :: operator<(const TString& s)
+{
+	int minLen;
+	if (len > s.len) minLen = s.len;
+	else { minLen = len; }
+	for (int i = 0; i < minLen; i++)
+	{
+		if (str[i] > s.str[i]) return false;
+		else if (str[i] < s.str[i]) { return true; }
+	}
+	if (len < s.len) return true;
+	else { return false; }
+}
+bool TString :: operator>(const TString& s)
+{
+	if (*this < s) return false;
+	if (*this == s) return false;
+	else return true;
+}
+bool TString :: operator<=(const TString& s)
+{
+	if (*this < s || *this == s) return true;
+}
+bool TString :: operator>=(const TString& s)
+{
+	if (*this > s || *this == s) return true;
 }
 
