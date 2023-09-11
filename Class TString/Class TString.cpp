@@ -3,12 +3,12 @@
 
 int main()
 {
-    TString str;
-    TString s = "hi";
-    str = "Hello";
-    cout << str << endl;
-    str = s;
-    cout << str << endl;
-    int countSym=str.symb('l');
-    cout << countSym;
+    TString s1, s2,s3;
+    s1 = "Hello";
+    s2 = "Hellm";
+    s3 = "Hel";
+    bool sravn{ s1 >= s2 };
+    cout << sravn;
+    bool sravn1{ s1 >= s3 };
+    cout << sravn1;
 }
